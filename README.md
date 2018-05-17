@@ -49,7 +49,7 @@ Example:
 - hosts: all
 
   roles:
-    - Stouts.postgres
+    - Stouts.docker-postgres
 
   vars:
     postgres_databases:
