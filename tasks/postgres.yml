@@ -1,0 +1,30 @@
+---
+
+- name: Ensure that postgres prefix is exists
+  file:
+    state: directory
+    path: "{{postgres_prefix}}"
+
+- name: Configure init scripts
+  template:
+    src: init-db.sh
+    dest: "{{postgres_prefix}}/init-db.sh"
+    mode: 0755
+
+- name: Configure database
+  template:
+    src: postgres.conf
+    dest: "{{postgres_prefix}}/postgres.conf"
+  notify: postgres restart
+
+- name: Run Postgres
+  docker_container:
+    name: postgres
+    image: "{{postgres_image}}"
+    command: "-c 'config_file=/etc/postgresql/postgresql.conf'"
+    env: "{{postgres_env}}"
+    volumes: "{{postgres_volumes}}"
+    ports: "{{postgres_ports}}"
+    memory: "{{postgres_memory|default(omit)}}"
+    networks: "{{postgres_networks|default(omit)}}"
+    restart_policy: unless-stopped

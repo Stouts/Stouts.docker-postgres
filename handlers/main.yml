@@ -1,0 +1,7 @@
+---
+
+- name: postgres restart
+  docker_container:
+    name: postgres
+    state: started
+    restart: true
