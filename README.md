@@ -13,9 +13,9 @@ postgres_image: postgres:alpine     # Docker Postgres Image
 postgres_env: {}                    # ENV variables
 postgres_ports: ["5432:5432"]       # Listen ports
 postgres_volumes:                   # Container volumes
-- "{{postgres_prefix}}/init-db.sh:/docker-entrypoint-initdb.d/init-db.sh:ro"
-- "{{postgres_prefix}}/postgres.conf:/etc/postgresql/postgresql.conf"
 - "{{postgres_prefix}}/data:/var/lib/postgresql/data"
+- "{{postgres_prefix}}/init:/docker-entrypoint-initdb.d:ro"
+- "{{postgres_prefix}}/postgres.conf:/etc/postgresql/postgresql.conf"
 
 # Configure postgres (https://www.postgresql.org/docs/current/static/runtime-config.html)
 # postgres_options:

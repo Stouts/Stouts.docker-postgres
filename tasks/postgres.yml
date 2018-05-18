@@ -1,14 +1,16 @@
 ---
 
-- name: Ensure that postgres prefix is exists
+- name: Ensure that postgres directories are exists
   file:
     state: directory
-    path: "{{postgres_prefix}}"
+    path: "{{postgres_prefix}}/{{item}}"
+    recurse: true
+  with_items: "{{['init', 'data']}}"
 
 - name: Configure init scripts
   template:
     src: init-db.sh
-    dest: "{{postgres_prefix}}/init-db.sh"
+    dest: "{{postgres_prefix}}/init/00_init-db.sh"
     mode: 0755
 
 - name: Configure database
