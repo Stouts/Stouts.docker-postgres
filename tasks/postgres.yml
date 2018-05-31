@@ -3,9 +3,8 @@
 - name: Ensure that postgres directories are exists
   file:
     state: directory
-    path: "{{postgres_prefix}}/{{item}}"
+    path: "{{postgres_prefix}}/init"
     recurse: true
-  with_items: "{{['init', 'data']}}"
 
 - name: Configure init scripts
   template:
@@ -18,6 +17,10 @@
     src: postgres.conf
     dest: "{{postgres_prefix}}/postgres.conf"
   notify: postgres restart
+
+- name: Prepare Postgres Volume
+  docker_volume:
+    name: "{{postgres_volume}}"
 
 - name: Run Postgres
   docker_container:

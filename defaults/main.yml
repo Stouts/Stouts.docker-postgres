@@ -4,10 +4,11 @@ postgres_prefix: /opt/postgres      # Host data directory
 postgres_image: postgres:alpine     # Docker Postgres Image
 postgres_env: {}                    # ENV variables
 postgres_ports: ["5432:5432"]       # Listen ports
+postgres_volume: postgres_data      # Name of Postgres Docker Volume
 postgres_volumes:                   # Container volumes
-- "{{postgres_prefix}}/data:/var/lib/postgresql/data"
-- "{{postgres_prefix}}/init:/docker-entrypoint-initdb.d:ro"
-- "{{postgres_prefix}}/postgres.conf:/etc/postgresql/postgresql.conf"
+- "{{ postgres_volume }}:/var/lib/postgresql/data"
+- "{{ postgres_prefix }}/init:/docker-entrypoint-initdb.d:ro"
+- "{{ postgres_prefix }}/postgres.conf:/etc/postgresql/postgresql.conf"
 
 # Configure postgres (https://www.postgresql.org/docs/current/static/runtime-config.html)
 # postgres_options:
