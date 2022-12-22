@@ -13,6 +13,6 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" <<-EOSQL
     CREATE USER {{ user.name }} WITH PASSWORD '{{user.pass}}';
 {% endfor %}
 {% for priv in postgres_user_privileges %}
-    GRANT {{ priv.priv }} PRIVILEGES ON DATABASE {{ priv.db }} TO {{ priv.name }};
+    GRANT {{ priv.priv }} ON DATABASE {{ priv.db }} TO {{ priv.name }};
 {% endfor %}
 EOSQL

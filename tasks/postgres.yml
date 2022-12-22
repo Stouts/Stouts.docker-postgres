@@ -23,7 +23,7 @@
     name: "{{postgres_volume}}"
 
 - name: Run Postgres
-  docker_container:
+  community.docker.docker_container:
     name: postgres
     image: "{{postgres_image}}"
     command: "-c 'config_file=/etc/postgresql/postgresql.conf'"
