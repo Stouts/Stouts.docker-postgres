@@ -2,7 +2,11 @@ postgres_enabled: yes
 
 postgres_prefix: /opt/postgres      # Host data directory
 postgres_image: postgres:alpine     # Docker Postgres Image
-postgres_env: {}                    # ENV variables
+
+# ENV variables
+postgres_env: {
+  POSTGRES_HOST_AUTH_METHOD: trust
+}
 postgres_ports: ["5432:5432"]       # Listen ports
 postgres_volume: postgres_data      # Name of Postgres Docker Volume
 postgres_volumes:                   # Container volumes
